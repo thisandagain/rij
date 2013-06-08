@@ -7,7 +7,7 @@ Each task is isolated to a single process. That process can fail without the mai
 
 Resque has a few different implementations (most notability one mature implementation in the Ruby community and one for Node.js that is much less mature that was written in coffeescript.) While resqueue (like Rij) is Redis-backed, resqueue lacks many features that make it "safe" such as process watchdogs, task idempotence and "burying" (ie: retrying) of failed tasks. This makes it less than ideal for production deployments where failure post mortems and job success are imperatives.
 
-Beanstalkd is designed for speed, but is a "proper" work queue in that is includes some safety features such as "burying" a job. That said, due to it's platform agnostic nature and feature focus being centered around speed, it trades much in terms of debuggability and safety for that goal.
+Beanstalkd is designed for speed, but – unlike Resque – is a "proper" work queue in that is includes some safety features such as "burying" a job. That said, due to it's platform agnostic nature and feature focus being centered around speed, it trades much in terms of debuggability and safety for that goal.
 
 Principles:
 - Safety over speed. 
@@ -84,6 +84,4 @@ Individual tasks can also be configured. For example:
 ---
 
 ### Utilities
-Rij has an HTTP server companion utility that make working with Rij easier:
-
-`oden` - An HTTP server front-end for Rij.
+Rij has an HTTP server companion utility called [Oden](https://github.com/thisandagain/oden) that make working with Rij easier and also serves as a reference implementation.
