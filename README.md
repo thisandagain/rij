@@ -24,15 +24,18 @@ npm install rij
 var rij = require('rij');
 
 rij.enqueue({
-    
+    worker: __dirname + '/path/to/worker.js',
+    job:    {
+        hello: 'world'
+    }
 }, function (err) {
-    
+    // Task has been added to the queue!
 });
 ```
 
 ```javascript
 module.exports = function (job, callback) {
-    callback(null, 'hello world');
+    callback(null, job.hello);
 };
 ```
 
@@ -41,7 +44,7 @@ module.exports = function (job, callback) {
 var rij = require('rij');
 ```
 
-// Start the workers
+// Start work queue
 rij.work();
 
 // Event emitters
