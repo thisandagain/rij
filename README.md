@@ -14,42 +14,46 @@ Principles:
 - Simplicity over features.
 - Jobs should be idempotent.
 
-### Task Options
-```javascript
-{
-    retry: 5,
-    timeout: 2000,  // specified in ms
-}
+### Installation
+```bash
+npm install rij
 ```
 
-### Getting Started
+### Enqueue A New Task
 ```javascript
-var rij     = require('rij');
-
-rij.queue('helloworld', function (payload, callback) {
-    
-});
+var rij = require('rij');
 
 rij.enqueue({
     
 }, function (err) {
     
 });
+```
 
-rij.status(function (callback) {
-    
-});
+```javascript
+module.exports = function (job, callback) {
+    callback(null, 'hello world');
+};
+```
+
+### Starting Workers
+```javascript
+var rij = require('rij');
+```
+
+// Start the workers
+rij.work();
 
 // Event emitters
-rij.on('complete', function (data) {
+rij.on('complete', function (msg) {
     
 });
 
-rij.on('error', function (data) {
+rij.on('incomplete', function (msg) {
     
 });
 
-rij.on('fatal', function (data) {
+rij.on('fatal', function (err) {
     
 });
 ```
@@ -65,9 +69,6 @@ rij.on('fatal', function (data) {
 ---
 
 ### Utilities
-Rij has an HTTP server compainion utility that make working with Rij easier:
+Rij has an HTTP server companion utility that make working with Rij easier:
 
 `oden` - An HTTP server front-end for Rij.
-
-### Who Uses It?
-Rij is currently deployed at [DIY](https://diy.org) and can handle well over 500,000 tasks per day for us. Using Rij? [Let us know about it!](mailto:andrew@diy.org)
