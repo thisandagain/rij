@@ -80,8 +80,3 @@ Individual tasks can also be configured. For example:
 ```javascript
 
 ```
-
----
-
-### Utilities
-Rij has an HTTP server companion utility called [Oden](https://github.com/thisandagain/oden) that make working with Rij easier and also serves as a reference implementation.
