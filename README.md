@@ -61,10 +61,25 @@ rij.on('fatal', function (err) {
 ---
 
 ### Methods
+**rij.enqueue** - Enqueues a new task.
+**rij.status** - Returns the status of the Rij instance.
+**rij.work** - Starts workers.
 
 ### Events
+**complete** - Emitted when a task is completed successfully.
+**incomplete** - Emitted when a task fails.
+**fatal** - Emitted when a task fails fatally or when a critical issue is detected within Rij.
 
 ### Configuration
+Rij uses environment variables for configuration. Most notably for Redis connection and concurrency settings:
+```bash
+
+```
+
+Individual tasks can also be configured. For example:
+```javascript
+
+```
 
 ---
 
