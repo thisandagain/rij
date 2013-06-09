@@ -43,21 +43,21 @@ module.exports = function (job, callback) {
 ```javascript
 var rij = require('rij');
 
-// Start work queue
-rij.work();
-
-// Event emitters
+// Listen for events
 rij.on('complete', function (msg) {
-    
+    // A task completed!
 });
 
 rij.on('incomplete', function (msg) {
-    
+    // Oh no! A task failed (but will be retried).
 });
 
 rij.on('fatal', function (err) {
-    
+    // Something really bad happened.
 });
+
+// Start work queue
+rij.work();
 ```
 
 ---
