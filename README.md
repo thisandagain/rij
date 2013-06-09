@@ -1,5 +1,5 @@
 ## rij (pronounced "rye")
-#### A safe and sensible work queue.
+#### Safe and sensible work queue.
 
 Compare to beanstalkd and resque... explain difference in detail. 
 
@@ -42,7 +42,6 @@ module.exports = function (job, callback) {
 ### Starting Workers
 ```javascript
 var rij = require('rij');
-```
 
 // Start work queue
 rij.work();
