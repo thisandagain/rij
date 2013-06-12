@@ -72,13 +72,29 @@ queue.on('fatal', function (err) {
 Configuration and task defaults can be passed when requiring Rij:
 ```bash
 var rij = require('rij')({
-     
+    namespace:      'rij',
+    retry:          5,
+    timeout:        10000,
+    concurrency:    require('os').cpus().length,
+
+    host:           '127.0.0.1',
+    port:           6379,
+    password:       null
 });
 ```
 
-Individual tasks can also be configured. For example:
+Individual tasks can override the `retry` and `timeout` defaults. For example:
 ```javascript
-
+rij.enqueue({
+    worker: __dirname + '/path/to/worker.js',
+    job:    {
+        hello: 'world'
+    },
+    retry: 10,
+    timeout: 30000
+}, function (err) {
+    // Task has been added to the queue!
+});
 ```
 
 ---
