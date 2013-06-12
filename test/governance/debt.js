@@ -1,7 +1,7 @@
 var test    = require('tap').test,
     bux     = require('codebux');
 
-var debt    = bux(__dirname + '/../../lib/index.js');
+var debt    = bux(__dirname + '/../../index.js');
 debt.on('error', function (err) {});
 debt.on('end', function (total) {
     console.log(total);

@@ -1,34 +1,35 @@
 var test    = require('tap').test,
-    rij     = require('../../lib/index');
+    rij     = require('../../index')();
 
 test('integration', function (t) {
     rij.enqueue({
-        worker: __dirname + '/../fixtures/ok',
+        worker: __dirname + '/../fixtures/ok.js',
         job:    {
             foo: 'bar'
         }
     }, function (err) {
+        console.dir(err);
         t.equal(err, null, 'error object should be null');
     });
 
-    rij.on('fatal', function (err) {
+    var queue = rij.queue();
+
+    queue.on('fatal', function (err) {
         t.equal(err, null, 'error object should be null');
         t.end();
         throw err;
     });
 
-    rij.on('incomplete', function (task) {
+    queue.on('incomplete', function (task) {
         t.equal(task, null, 'task object should be null');
         t.end();
         throw task;
     });
 
-    rij.on('complete', function (msg) {
+    queue.on('complete', function (msg) {
         t.type(msg, 'object', 'message object should be an object');
         t.equal(msg.error, null, 'error object should be null');
         t.end();
         setTimeout(process.exit, 500);
     });
-
-    rij.work();
 });

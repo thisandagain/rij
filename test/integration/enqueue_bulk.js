@@ -1,5 +1,5 @@
 var test    = require('tap').test,
-    rij     = require('../../lib/index');
+    rij     = require('../../index')();
 
 var limit   = 20;
 var results = [];
@@ -7,26 +7,28 @@ var results = [];
 test('integration', function (t) {
     for (var i = 0; i < limit; i++) {
         rij.enqueue({
-            worker: __dirname + '/../fixtures/redis',
+            worker: __dirname + '/../fixtures/redis.js',
             job:    i
         }, function (err) {
             t.equal(err, null, 'error object should be null');
         });
     }
 
-    rij.on('fatal', function (err) {
+    var queue = rij.queue();
+
+    queue.on('fatal', function (err) {
         t.equal(err, null, 'error object should be null');
         t.end();
         throw err;
     });
 
-    rij.on('incomplete', function (task) {
+    queue.on('incomplete', function (task) {
         t.equal(task, null, 'task object should be null');
         t.end();
         throw task;
     });
 
-    rij.on('complete', function (msg) {
+    queue.on('complete', function (msg) {
         t.type(msg, 'object', 'message object should be an object');
         t.equal(msg.error, null, 'error object should be null');
         t.type(msg.result, 'string', 'result should be of expected type');
@@ -38,6 +40,4 @@ test('integration', function (t) {
             setTimeout(process.exit, 500);
         }
     });
-
-    rij.work();
 });
