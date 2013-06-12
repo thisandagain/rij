@@ -19,7 +19,7 @@ module.exports = function (job, callback) {
 
 ### Enqueue A New Task
 ```javascript
-var rij = require('rij');
+var rij = require('rij')();
 
 rij.enqueue({
     worker: __dirname + '/path/to/worker.js',
@@ -33,23 +33,23 @@ rij.enqueue({
 
 ### Start The Queue
 ```javascript
-var rij = require('rij');
+var rij = require('rij')();
+
+// Create the queue
+var queue = rij.queue();
 
 // Listen for events
-rij.on('complete', function (msg) {
+queue.on('complete', function (msg) {
     // A task completed!
 });
 
-rij.on('incomplete', function (msg) {
+queue.on('incomplete', function (msg) {
     // Oh no! A task failed (but will be retried).
 });
 
-rij.on('fatal', function (err) {
+queue.on('fatal', function (err) {
     // Something really bad happened.
 });
-
-// Start work queue
-rij.start();
 ```
 
 ---
@@ -57,9 +57,7 @@ rij.start();
 ### Methods
 **rij.enqueue** - Enqueues a new task.
 
-**rij.status** - Returns the status of the Rij instance.
-
-**rij.start** - Starts workers.
+**rij.queue** - Starts workers.
 
 
 ### Events
@@ -71,9 +69,11 @@ rij.start();
 
 
 ### Configuration
-Rij uses environment variables for configuration. Most notably for Redis connection and concurrency settings:
+Configuration and task defaults can be passed when requiring Rij:
 ```bash
-
+var rij = require('rij')({
+     
+});
 ```
 
 Individual tasks can also be configured. For example:
