@@ -28,6 +28,7 @@ test('integration', function (t) {
 
     queue.on('complete', function (msg) {
         t.type(msg, 'object', 'message object should be an object');
+        console.dir(msg.error);
         t.equal(msg.error, null, 'error object should be null');
         t.end();
         setTimeout(process.exit, 500);
